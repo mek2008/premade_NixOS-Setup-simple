@@ -1,0 +1,182 @@
+{
+  "layer": "top",
+  "position": "top",
+  "spacing": 4,
+
+  "modules-left": [
+    "power-profiles-daemon",
+    "cpu",
+    "memory",
+    "temperature#cpu",
+    "custom/gpu",
+    "disk"
+  ],
+
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
+
+  "modules-right": [
+    "network",
+    "bluetooth",
+    "wireplumber",
+    "battery",
+    "clock",
+    "tray",
+    "custom/mic"  
+  ],
+
+  /* ───────────────── POWER PROFILES ───────────────── */
+
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power mode: {profile}",
+    "format-icons": {
+      "power-saver": "power save",
+      "balanced": "balanced",
+      "performance": "performance"
+    },
+    "on-click": "powerprofilesctl set next",
+    "on-click-right": "powerprofilesctl set power-saver",
+    "on-click-middle": "powerprofilesctl set performance"
+  },
+
+  /* ───────────────── CPU ───────────────── */
+
+  "cpu": {
+    "format": "CPU-{usage}%",
+    "interval": 2,
+    "on-click": "kitty -e btop"
+  },
+
+  /* ───────────────── MEMORY ───────────────── */
+
+  "memory": {
+    "format": "RAM-{percentage}%",
+    "interval": 2,
+    "on-click": "kitty -e btop"
+  },
+
+  /* ───────────────── CPU TEMPERATURE ───────────────── */
+
+  "temperature#cpu": {
+    "format": "CPU-TEMP-{temperatureC}°C",
+    "critical-threshold": 85,
+    "interval": 2,
+    "on-click": "kitty -e btop"
+  },
+
+  /* ───────────────── NVIDIA GPU TEMPERATURE ───────────────── */
+
+  "custom/gpu": {
+    "exec": "nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits 2>/dev/null || echo N/A",
+    "format": "GPU-TEMP-{}°C",
+    "interval": 3,
+    "tooltip": false,
+    "on-click": "kitty -e nvidia-smi"
+  },
+
+  /* ───────────────── DISK ───────────────── */
+
+  "disk": {
+    "path": "/",
+    "format": "NVMe-{percentage_used}%",
+    "tooltip": true,
+    "interval": 30
+  },
+
+  /* ───────────────── HYPRLAND WORKSPACES ───────────────── */
+
+"hyprland/workspaces": {
+  "format": "{icon}",
+
+  "format-icons": {
+    "1": "1",
+    "2": "2",
+    "3": "3",
+    "4": "4",
+    "5": "5",
+    "6": "6",
+    "7": "7",
+    "8": "8",
+
+    "active": "I",
+    "default": "O"
+  },
+
+  "persistent-workspaces": {
+    "HDMI-A-1": [1, 2, 3, 4],
+    "eDP-1": [5, 6, 7, 8]
+  }
+},
+
+  /* ───────────────── NETWORK ───────────────── */
+
+  "network": {
+    "format-wifi": "Wifi-{essid}",
+    "format-ethernet":  "Wired",
+    "format-disconnected": "Offline",
+    "tooltip-format": "{ifname}: {ipaddr}",
+    "on-click": "nm-connection-editor"
+  },
+
+  /* ───────────────── BLUETOOTH ───────────────── */
+
+  "bluetooth": {
+    "format": "BT",
+    "tooltip-format": "{status}",
+    "on-click": "blueman-manager"
+  },
+
+  /* ───────────────── AUDIO ───────────────── */
+
+  "pulseaudio": {
+    "format": "VOL- {volume}%",
+    "format-muted": "Muted",
+    "on-click": "pavucontrol",
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "scroll-step": 5
+  },
+
+
+  "custom/mic": {
+    "format": "mic",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+  },
+
+  /* ───────────────── BRIGHTNESS  ───────────────── */
+
+  "backlight": {
+    "format": "{percent}%-brig",
+    "scroll-step": 5,
+    "on-scroll-up": "brightnessctl set +5%",
+    "on-scroll-down": "brightnessctl set 5%-"
+  },
+
+
+  /* ───────────────── BATTERY ───────────────── */
+
+  "battery": {
+    "format": "{capacity}%",
+    "format-charging": "{capacity}%",
+    "format-warning": "{capacity}%",
+    "states": {
+      "warning": 20,
+      "critical": 10
+    }
+  },
+
+
+  /* ───────────────── CLOCK ───────────────── */
+
+  "clock": {
+    "format": "{:%H:%M}",
+    "tooltip-format": "{:%A, %d %B %Y}"
+  },
+
+  /* ───────────────── TRAY ───────────────── */
+
+  "tray": {
+    "spacing": 8
+  }
+}
