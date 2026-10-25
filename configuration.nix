@@ -62,8 +62,6 @@ system-update = "cd /etc/nixos && nix flake update && nixos-rebuild test --print
 #      measuredBoot.enable = true;
 #    };
 
-    initrd.systemd.enable = true;
-
     loader = {
       limine.enable = lib.mkForce false;
       systemd-boot.enable = true;
